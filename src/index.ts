@@ -8,22 +8,15 @@ import { multiaddr } from "@multiformats/multiaddr"
 const app = express()
 app.use(cors())
 
-
 app.get("/get_image", async (req, res) => {
     const hash = req.query.hash
-    console.log("0")
 
     const { unixfs } = await import("@helia/unixfs")
-    console.log("1")
     const helia = await createNode()
-    console.log("2")
 
     try {
-        console.log("attempting dial")
         const addr = multiaddr(process.env.MULTIADDR_HASHMANAGER)
-    // await helia.libp2p.dial(peerIdFromString(process.env.NODEID_HASHMANAGER!!))
         await helia.libp2p.dial(addr)
-        console.log("finished dial")
     } catch(e) {
         console.log(e)
     }
